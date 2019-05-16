@@ -1,0 +1,20 @@
+import xml.etree.ElementTree as ET
+import os, sys
+from xml.dom.minidom import parse
+import xml.dom.minidom
+def convertChoushaToGousi(xmlPath):
+    inFile=open(xmlPath)
+    tree=ET.parse(inFile)
+    root=tree.getroot()
+    for obj in root.iter('object'):
+        cls=obj.find('name')
+        if cls.text=="chousha":
+            cls.text="gousi"
+    tree.write(xmlPath)
+imgPath="C:/Users/Administrator/Desktop/traingousi"
+for root,dirs,files in os.walk(imgPath):
+    for img in files:
+        if img.endswith('.xml'):
+            xmlPath=imgPath+'/'+img
+            convertChoushaToGousi(xmlPath)
+            
